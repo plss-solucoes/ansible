@@ -1,8 +1,0 @@
-
-[temp:vars]
-ansible_user= admplss
-ansible_become_pass='Z010f3c0m'
-ansible_become_method=sudo
-ansible_python_interpreter=/usr/bin/python3
-[temp]
-192.168.111.81

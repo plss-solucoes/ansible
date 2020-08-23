@@ -1,5 +1,0 @@
----
-- hosts: temp
-  tasks:
-    - name: Update and upgrade apt packages
-      shell: apt-get update -y; apt-get upgrade -y

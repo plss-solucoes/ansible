@@ -1,9 +1,0 @@
----
-    - name: Servidore HYPER
-      hosts: all
-      gather_facts: no
-      tasks:
-        - name: HYPER-V | Listando VMs
-          win_shell: get-vm
-          register: Powershell
-        - debug: msg={{Powershell}}
