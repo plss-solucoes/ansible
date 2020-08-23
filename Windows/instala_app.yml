@@ -1,0 +1,12 @@
+---
+    - name: Software | Instalação imediata
+      hosts: all
+      gather_facts: no
+      vars:
+        app: "{{app}}"
+        operacao: "{{operacao}}"
+      tasks:
+        - name: "{{operacao}} {{app}}" 
+          win_shell: choco {{operacao}} {{app}} -y
+          register: Powershell
+        - debug: msg={{Powershell}}

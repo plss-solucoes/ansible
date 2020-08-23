@@ -1,0 +1,50 @@
+---
+- name: HYPER-V
+  hosts: fisicos
+  vars:
+    my_name: "{{nome}}"
+    my_processor: "{{processador}}"
+    my_memory: "{{memoria}}"
+    my_disk: "{{disco}}"
+    my_dir: ['f:\hyper-v\', "{{nome}}"]
+    diretorio: "{{ my_dir | join('\') }}"
+    my_unidade: "{{unidade}}"
+
+  tasks:
+    - name: Copiando script para servidor físico
+      win_copy:
+        src: ../powershell/ubuntu.ps1
+        dest: c:\temp\ubuntu.ps1
+        backup: yes
+
+    - name: Executando PowerShell Script
+      win_shell: c:\temp\ubuntu.ps1 {{nome}} {{processador}} {{memoria}} {{unidade}}
+
+     
+    - name: Levantando Endereco IP(DHCP Client)
+      win_shell: $IP = ( GEt-VM -ComputerName LOCALHOST -VMName {{nome}} | Get-VMNetworkAdapter).IpAddresses[0]; $IP
+      register: IP
+
+    - debug: msg="{{IP}}"
+
+    - debug: msg="{{IP.stdout_lines}}"
+
+    - name: Criando arquivo local
+      shell: echo {{IP.stdout_lines}} > /tmp/ip.txt
+      delegate_to: 127.0.0.1
+
+    - name: Criando arquivo local
+      shell: echo > hosts; echo '[temp:vars]' | sudo tee -a hosts; echo 'ansible_user= admplss' | sudo tee -a hosts;  echo "ansible_become_pass='Z010f3c0m'" | sudo tee -a hosts; echo 'ansible_become_method=sudo' | sudo tee -a hosts; echo 'ansible_python_interpreter=/usr/bin/python3' | sudo tee -a hosts
+      delegate_to: 127.0.0.1
+
+    - name: Criando arquivo local
+      shell: echo '[temp]' | sudo tee -a hosts; 
+      delegate_to: 127.0.0.1
+
+    - name: INVENTORY |  Inserindo a nova VM no inventario
+      shell: sudo sed 's/\[//g;s/\]//g;s/u//' /tmp/ip.txt >> hosts
+      delegate_to: 127.0.0.1
+
+    - name: UPDATE | Atualizado S.O da nova máquina virtual
+      shell: ansible-playbook -i hosts /home/admplss/ansible-scripts/outros/ansible-playbooks/apache_ubuntu1804/playbook.yml -b
+      delegate_to: 127.0.0.1

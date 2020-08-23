@@ -1,0 +1,20 @@
+---
+    - name: Reboot / Shutdown|  Servidor Windows
+      hosts: all
+      gather_facts: no
+
+      vars: 
+        operacao: "{{operacao}}"
+      tasks:
+        - name: "Reiniciar" 
+          win_shell: shutdown /r /f
+          when: operacao == "Reiniciar"
+          register: rebooting
+        - debug: msg={{rebooting}}
+          
+
+        - name: "Desligar" 
+          win_shell: shutdown /s  
+          when: operacao == "Desligar" 
+          register: rebooting
+        - debug: msg={{rebooting}}
