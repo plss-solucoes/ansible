@@ -1,0 +1,13 @@
+---
+  - hosts: all
+    gather_facts: true
+    vars:
+      ip: "{{ip}}"
+      lista: "{{lista}}"
+    tasks:
+      - name: Incluindo IP em lista PLSS
+        routeros_command:
+          commands: ip firewall address-list add list={{lista}} address={{ip}}
+        register: routeros_resources
+        when: ansible_network_os == 'routeros' 
+        debug: "Endereço ip {{ip}} incluido na lista {{lista}}"
