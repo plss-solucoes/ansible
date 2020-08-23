@@ -2,8 +2,8 @@
   - hosts: all
     gather_facts: true
     tasks:
-      - name: set routeros firmware channel
+      - name: Update
         routeros_command:
-          commands: /system package update set channel=stable
+          commands: /system package update install
         register: routeros_resources
-        debug: msg="{{routeros_resources}}"
+        when: ansible_network_os == 'routeros' 
