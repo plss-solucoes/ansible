@@ -4,6 +4,6 @@
     tasks:
     - name: Display resource statistics 
       routeros_command:
-        commands: /system resource print /system package update check-for-updates
+        commands: /system package update install
       register: routeros_resources
       when: ansible_network_os == 'routeros'
