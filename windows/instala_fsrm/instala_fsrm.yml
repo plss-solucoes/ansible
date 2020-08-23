@@ -1,0 +1,15 @@
+---
+    - name: FSRM| Instalação 
+      hosts: all
+      gather_facts: no
+      tasks:
+        - name: "Copiando script"
+          win_copy:
+            src: install_fsrm.ps1
+            dest: c:\temp\install_fsrm.ps1
+            backup: no
+            
+        - name: "Instalando o FSRM"
+          win_shell: c:\temp\install_fsrm.ps1
+          register: saida
+        - debug: msg={{saida}}

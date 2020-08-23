@@ -1,0 +1,27 @@
+---
+ - name: Levantando Endereco IP(DHCP Client)
+   hosts: all
+   tasks:
+     - win_shell: $IP = ( GEt-VM -ComputerName LOCALHOST -VMName VM-NOVA | Get-VMNetworkAdapter).IpAddresses[0]; $IP 
+       register: IP
+     
+     - debug: msg="{{IP}}"
+
+     - debug: msg="{{IP.stdout_lines}}"
+
+     - name: Criando arquivo local
+       shell: echo {{IP.stdout_lines}} > /tmp/ip.txt
+       delegate_to: 127.0.0.1
+
+     - name: Criando arquivo local
+       shell: echo '[temp]' | sudo tee -a /etc/ansible/hosts
+       delegate_to: 127.0.0.1
+
+     - name: INVENTORY |  Inserindo a nova VM no inventario
+       shell: sudo sed 's/\[//g;s/\]//g;s/u//' /tmp/ip.txt >> /etc/ansible/hosts
+       delegate_to: 127.0.0.1
+    
+     - name: INVENTORY |  Inserindo a nova VM no inventario
+       shell: ansible-playbook reboot.yml -vvv
+       delegate_to: 127.0.0.1
+

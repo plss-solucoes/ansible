@@ -1,0 +1,30 @@
+---
+- name: Windows Update
+  hosts: all
+  vars:
+    reboot: "{{reboot}}"
+  tasks:
+    - name: Windows Update com reinicializaçao automática  
+      block:
+        - win_updates:
+            category_names:
+            - SecurityUpdates  
+            - CriticalUpdates
+            - Feature Packs
+            - Updates
+            reboot: yes
+            reboot_timeout: 600
+        - win_service:
+              name: WinRM
+              start_mode: delayed
+      when: reboot== "Sim"
+
+    - name: Windows Update sem reinicializaçao automática  
+      block:
+        - win_updates:
+            category_names:  
+            - SecurityUpdates
+            - CriticalUpdates
+            - Feature Packs
+            - Updates
+      when: reboot== "Nao"
