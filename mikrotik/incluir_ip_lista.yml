@@ -1,6 +1,6 @@
 ---
   - hosts: all
-    gather_facts: true
+    gather_facts: false
     vars:
       ip: "{{ip}}"
       lista: "{{lista}}"
@@ -8,6 +8,6 @@
       - name: Incluindo IP em lista PLSS
         routeros_command:
           commands: /ip firewall address-list add list={{lista}} address={{ip}}
-          register: routeros_resources
+        register: routeros_resources
         when: ansible_network_os == 'routeros' 
-        debug: "Endereço ip {{ip}} incluido na lista {{lista}}"
+      - debug: "Endereço ip {{ip}} incluido na lista {{lista}}"
