@@ -1,0 +1,12 @@
+---
+  - hosts: all
+    gather_facts: false
+    vars:
+      ip: "{{nome}}"
+      senha: "{{senha}}"
+    tasks:
+      - name: Alterando a senha
+        routeros_command:
+          commands: /user set [find name={{nome}}] password={{senha}}
+        register: routeros_resources
+        when: ansible_network_os == 'routeros' 
