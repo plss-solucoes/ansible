@@ -1,28 +1,31 @@
 ---
+    - name: Compactando discos virtuais das máquinas
       hosts: all
       gather_facts: no
       vars:
         nome_vm: "{{vm}}"
         opcao: "{{opcao}}"
       tasks:
-        - block:
-          - name: COPY | Copiando script para servidor físico
-            win_copy:
-              src: compacta_vhd_no_shutdown.ps1 
-              dest: c:\temp\compacta_vhd_no_shutdown.ps1 inventory_hostname
-              backup: no
+        - name: COPY | Copiando script para servidor físico
+          block:
+            - name: COPY | Copiando script para servidor físico
+              win_copy:
+                src: compacta_vhd_no_shutdown.ps1 
+                dest: c:\temp\compacta_vhd_no_shutdown.ps1 inventory_hostname
+                backup: no
 
-          - name: Iniciando VM | Executando PowerShell Script
-            win_shell: c:\temp\compacta_vhd_no_shutdown.ps1 inventory_hostname
+            - name: Iniciando VM | Executando PowerShell Script
+              win_shell: c:\temp\compacta_vhd_no_shutdown.ps1 inventory_hostname
           when: opcao == "Sim"
 
-        - block:
-          - name: COPY | Copiando script para servidor físico
-            win_copy:
-              src: compacta_vhd.ps1
-              dest: c:\temp\compacta_vhd.ps1 {{vm}}
-              backup: no
+        - name: COPY | Copiando script para servidor físico
+          block:
+            - name: COPY | Copiando script para servidor físico
+              win_copy:
+                src: compacta_vhd.ps1
+                dest: c:\temp\compacta_vhd.ps1 {{vm}}
+                backup: no
 
-          - name: Iniciando VM | Executando PowerShell Script
-            win_shell: c:\temp\compacta_vhd.ps1 
+            - name: Iniciando VM | Executando PowerShell Script
+              win_shell: c:\temp\compacta_vhd.ps1 
           when: opcao == "Não - Compacte apenas as VMS que estiverem desligadas"
