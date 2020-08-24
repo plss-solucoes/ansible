@@ -4,15 +4,30 @@
       gather_facts: no
       vars:
         nome_vm: "{{vm}}"
+        opcao: "{{opcao}}"
       tasks:
+        block:
+          - name: COPY | Copiando script para servidor físico
+            win_copy:
+              src: compacta_vhd_no_shutdown.ps1 
+              dest: c:\temp\compacta_vhd_no_shutdown.ps1 {{vm}}
+              backup: no
 
-        - name: COPY | Copiando script para servidor físico
-          win_copy:
-            src: compacta_vhd.ps1
-            dest: c:\temp\compacta_vhd.ps1
-            backup: no
+          - name: Iniciando VM | Executando PowerShell Script
+            win_shell: c:\temp\compacta_vhd_no_shutdown.ps1 {{vm}}
+            register: Powershell
+          - debug: msg="{{Powershell}}"
+        when: opcao == "Sim"
 
-        - name: Iniciando VM | Executando PowerShell Script
-          win_shell: c:\temp\compacta_vhd.ps1
-          register: Powershell
-        - debug: msg="{{Powershell}}"
+        block:
+          - name: COPY | Copiando script para servidor físico
+            win_copy:
+              src: compacta_vhd.ps1
+              dest: c:\temp\compacta_vhd.ps1 {{vm}}
+              backup: no
+
+          - name: Iniciando VM | Executando PowerShell Script
+            win_shell: c:\temp\compacta_vhd.ps1 
+            register: Powershell
+          - debug: msg="{{Powershell}}"
+        when: opcao == "Não - Compacte apenas as VMS que estiverem desligadas"
