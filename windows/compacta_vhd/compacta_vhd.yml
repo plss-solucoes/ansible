@@ -5,7 +5,7 @@
         nome_vm: "{{vm}}"
         opcao: "{{opcao}}"
       tasks:
-        block:
+        - block:
           - name: COPY | Copiando script para servidor físico
             win_copy:
               src: compacta_vhd_no_shutdown.ps1 
@@ -18,7 +18,7 @@
           - debug: msg="{{Powershell}}"
         when: opcao == "Sim"
 
-        block:
+        - block:
           - name: COPY | Copiando script para servidor físico
             win_copy:
               src: compacta_vhd.ps1
