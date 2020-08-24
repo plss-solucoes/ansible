@@ -1,16 +1,3 @@
-## Alisson Marques 24/08/2020  v.1.2
-
-# Desliga as maquinas ligadas
-$runningVM = Get-VM -ComputerName $args[0]| where state -eq 'running'
-foreach ($cn in $runningVM)
-{Stop-VM $cn.name -asjob}  
-{ start-sleep -s 15 }
-
-#Checa se ainda existem maquinas desligadas e aguarda mis 5 segundos a cada verificação
-$runningVM = Get-VM -ComputerName $args[0]| where state -eq 'running'
-foreach ($cn in $runningVM){
-while (Get-VM -ComputerName $args[0]| where state -eq 'running') { start-sleep -s 5 }
-}
 
 ### Início da descompactação
 ### BEGIN ELEVATE TO ADMIN
