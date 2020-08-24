@@ -8,8 +8,9 @@ foreach ($cn in $runningVM)
 
 #Checa se ainda existem maquinas desligadas e aguarda mis 5 segundos a cada verificação
 $runningVM = Get-VM -ComputerName $args[0]| where state -eq 'running'
-foreach ($cn in $runningVM){
-while (Get-VM -ComputerName $args[0]| where state -eq 'running') { Stop-VM $cn.name -asjob start-sleep -s 5 }
+foreach ($cn in $runningVM){ 
+Stop-VM $cn.name -asjob
+while (Get-VM -ComputerName $args[0]| where state -eq 'running') { start-sleep -s 15 }
 }
 
 ### Início da descompactação
