@@ -14,7 +14,6 @@
 
           - name: Iniciando VM | Executando PowerShell Script
             win_shell: c:\temp\compacta_vhd_no_shutdown.ps1 inventory_hostname
-            register: Powershell
         when: opcao == "Sim"
 
         - block:
@@ -26,5 +25,4 @@
 
           - name: Iniciando VM | Executando PowerShell Script
             win_shell: c:\temp\compacta_vhd.ps1 
-            register: Powershell
         when: opcao == "Não - Compacte apenas as VMS que estiverem desligadas"
