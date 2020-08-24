@@ -1,5 +1,4 @@
 ---
-    - name: Compactando discos virtuais das máquinas
       hosts: all
       gather_facts: no
       vars:
