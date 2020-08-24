@@ -1,0 +1,14 @@
+---
+  - hosts: all
+    gather_facts: false
+    vars:
+      ip: "{{nome}}"
+      lista: "{{grupo}}"
+      senha: "{{senha}}"
+    tasks:
+      - name: Criando usuário Mikrotik
+        routeros_command:
+          commands: /user add name=nome group=grupo password=senha
+        register: routeros_resources
+        when: ansible_network_os == 'routeros' 
+      - debug: "Usuário {{nome}} criado e vinculado ao grupo {{grupo}}"
