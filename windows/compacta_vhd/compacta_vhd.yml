@@ -15,7 +15,7 @@
                 backup: no
 
             - name: Iniciando VM | Executando PowerShell Script
-              win_shell: c:\temp\compacta_vhd.ps1 inventory_hostname
+              win_shell: c:\temp\compacta_vhd.ps1 {{inventory_hostname}}
           when: opcao == "SIM"
 
         - name: COPY | Copiando script para servidor físico
