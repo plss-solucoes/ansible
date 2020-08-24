@@ -11,7 +11,7 @@
             - name: COPY | Copiando script para servidor físico
               win_copy:
                 src: compacta_vhd_no_shutdown.ps1 
-                dest: c:\temp\compacta_vhd_no_shutdown.ps1 inventory_hostname
+                dest: c:\temp\compacta_vhd_no_shutdown.ps1 
                 backup: no
 
             - name: Iniciando VM | Executando PowerShell Script
