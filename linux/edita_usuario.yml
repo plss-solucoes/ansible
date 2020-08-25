@@ -21,5 +21,5 @@
         - name: Alterar a senha
           block:
            - name: Alterando
-             shell:  echo -e "{{senha}}\n{{senha}}" | passwd {{nome}}
+             shell:  echo -e "'{{senha}}'-'\n'-'{{senha}}'" | passwd {{nome}}
           when: operacao == "Alterar senha"
