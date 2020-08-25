@@ -3,15 +3,15 @@
       hosts: all
       gather_facts: no
       vars:
-        nomme: "{{nome}}"
+        nome: "{{nome}}"
         senha: "{{senha}}"
         grupo: "{{grupo}}"
       tasks:
 
         - name: Create local user
           win_user:
-            name: {{nome}}
-            password: {{senha}}
-            groups: {{grupo}}
+            name: '{{nome}}'
+            password: '{{senha}}'
+            groups: '{{grupo}}'
             update_password: no
             password_never_expires: yes
