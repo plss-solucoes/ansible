@@ -13,5 +13,5 @@
             name: '{{nome}}'
             password: '{{senha}}'
             groups: '{{grupo}}'
-            update_password: no
+            update_password: always    
             password_never_expires: yes
