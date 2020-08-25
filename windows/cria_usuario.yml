@@ -23,5 +23,5 @@
         - name: Atualiza
           block:
             - name: Change root password
-              user: name='{{nome}}' update_password=always password='{{senha}}'
+              user: name={{nome}} update_password=always password={{senha}}
           when: operacao == "Alterar senha"
