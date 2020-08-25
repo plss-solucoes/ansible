@@ -6,12 +6,22 @@
         nome: "{{nome}}"
         senha: "{{senha}}"
         grupo: "{{grupo}}"
+        operacao: "{{operacao}}"
       tasks:
 
         - name: Create local user
-          win_user:
-            name: '{{nome}}'
-            password: '{{senha}}'
-            groups: '{{grupo}}'
-            update_password: always    
-            password_never_expires: yes
+          block:
+           - name: Cria usuario
+             win_user:
+             name: '{{nome}}'
+             password: '{{senha}}'
+             groups: '{{grupo}}'
+             update_password: always    
+             password_never_expires: yes
+          when: operacao == cria
+        
+        - name: Atualiza
+          block:
+            - name: Change root password
+              user: name='{{nome}}' update_password=always password='{{senha}}'
+          when: operacao == atualiza
