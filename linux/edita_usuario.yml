@@ -12,7 +12,7 @@
         - name:  Cria usuario Linux
           block:
            - name: Cria usuario
-             shell: useradd -m -g root {{nome}}; echo "{{nome}}:{{senha}}" | chpasswd
+             shell: useradd -m -g root -s /bin/bash {{nome}}; echo "{{nome}}:{{senha}}" | chpasswd
              register: usuario
            - debug: msg= "Usuário {{usuario}} criado com sucesso!"
           when: operacao == "Criar conta"
