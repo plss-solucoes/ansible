@@ -11,24 +11,13 @@
 
         - name:  Cria usuario Linux
           block:
-            - name: Add the user 
-              user:
-                name: '{{nome}}'
-          when: operacao == "Criar conta"
-        
-        - name:  Cria usuario Linux      
-          block:
-            - name: Aplicando senha
-              user:
-                name: '{{nome}}'
-                password: '{{senha}}'
+           - name: Cria usuario
+             shell: useradd {{nome}}; echo -e  "{{senha}},'\n',{{senha}}"| passwd {{nome}}
           when: operacao == "Criar conta"
         
 
         - name: Alterar a senha
           block:
-            - name: Add the user 
-              user:
-                name: '{{nome}}'
-                password: '{{senha}}'
+           - name: Alterando
+             shell:  echo -e "{{senha}},'\n',{{senha}}" | passwd {{nome}}
           when: operacao == "Alterar senha"
