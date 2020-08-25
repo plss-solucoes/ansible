@@ -14,12 +14,21 @@
             - name: Add the user 
               user:
                 name: '{{nome}}'
+          when: operacao == "Criar conta"
+        
+        - name:  Cria usuario Linux      
+          block:
+            - name: Aplicando senha
+              user:
+                name: '{{nome}}'
                 password: '{{senha}}'
           when: operacao == "Criar conta"
         
 
         - name: Alterar a senha
           block:
-           - name: Alterando
-             shell:  echo -e "{{senha}}'\n'{{senha}}" | passwd {{nome}}
+            - name: Add the user 
+              user:
+                name: '{{nome}}'
+                password: '{{senha}}'
           when: operacao == "Alterar senha"
