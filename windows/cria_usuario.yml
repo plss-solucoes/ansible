@@ -13,11 +13,11 @@
           block:
            - name: Cria usuario
              win_user:
-             name: '{{nome}}'
-             password: '{{senha}}'
-             groups: '{{grupo}}'
-             update_password: always    
-             password_never_expires: yes
+               name: '{{nome}}'
+               password: '{{senha}}'
+               groups: '{{grupo}}'
+               update_password: always    
+               password_never_expires: yes
           when: operacao == "Criar conta"
         
         - name: Atualiza
