@@ -18,10 +18,10 @@
              groups: '{{grupo}}'
              update_password: always    
              password_never_expires: yes
-          when: operacao == cria
+          when: operacao == "Criar conta"
         
         - name: Atualiza
           block:
             - name: Change root password
               user: name='{{nome}}' update_password=always password='{{senha}}'
-          when: operacao == atualiza
+          when: operacao == "Alterar senha"
