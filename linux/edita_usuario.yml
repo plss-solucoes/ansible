@@ -13,8 +13,8 @@
           block:
            - name: Cria usuario
              shell:
-                useradd {{nome}}
-                echo -e "{{senha}}\{{senha}}" | passwd {{nome}}
+               - useradd {{nome}}
+               - echo -e "{{senha}}\{{senha}}" | passwd {{nome}}
           when: operacao == "Criar conta"
         
 
