@@ -1,5 +1,5 @@
 ---
-    - name: Software | Instalação imediata
+    - name: Administracao de usuario | contas locais 
       hosts: all
       gather_facts: no
       vars:
@@ -9,7 +9,7 @@
         operacao: "{{operacao}}"
       tasks:
 
-        - name: Create local user
+        - name:  Cria usuario
           block:
            - name: Cria usuario
              win_user:
@@ -21,9 +21,9 @@
           when: operacao == "Criar conta"
         
 
-        - name: Create local user
+        - name: Alterar a senha
           block:
-           - name: Cria usuario
+           - name: Alterando
              win_user:
                name: '{{nome}}'
                password: '{{senha}}'
