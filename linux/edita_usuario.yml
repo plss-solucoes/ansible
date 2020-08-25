@@ -14,7 +14,7 @@
            - name: Cria usuario
              shell: useradd -m -g root {{nome}}; echo "{{nome}}:{{senha}}" | chpasswd
              register: usuario
-             debug: msg= "Usuário {{usuario}} criado com sucesso!"
+           - debug: msg= "Usuário {{usuario}} criado com sucesso!"
           when: operacao == "Criar conta"
         
         - name: Alterar a senha
