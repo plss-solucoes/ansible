@@ -20,8 +20,13 @@
                password_never_expires: yes
           when: operacao == "Criar conta"
         
-        - name: Atualiza
+
+        - name: Create local user
           block:
-            - name: Change root password
-              user: name={{nome}} update_password=always password={{senha}}
+           - name: Cria usuario
+             win_user:
+               name: '{{nome}}'
+               password: '{{senha}}'
+               update_password: always    
+               password_never_expires: yes
           when: operacao == "Alterar senha"
