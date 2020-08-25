@@ -13,8 +13,8 @@
           block:
             - name: Add the user 
               user:
-                name: {{nome}}
-                password: {{senha}}
+                name: '{{nome}}'
+                password: '{{senha}}'
                 group: admin
           when: operacao == "Criar conta"
         
