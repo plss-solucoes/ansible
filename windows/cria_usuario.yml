@@ -1,0 +1,17 @@
+---
+    - name: Software | Instalação imediata
+      hosts: all
+      gather_facts: no
+      vars:
+        nomme: "{{item.name}}"
+        senha: "{{item.password}}"
+        grupo: "{{grupo}}"
+      tasks:
+
+        - name: Create local user
+          win_user:
+            name: {{ item.name }}
+            password: {{ item.password }}
+            groups: {{grupo}}}
+            update_password: no
+            password_never_expires: yes
