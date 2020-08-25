@@ -15,8 +15,6 @@
              shell: useradd {{nome}}; echo -e  "'{{senha}}'\n'{{senha}}'" | passwd {{nome}}
           when: operacao == "Criar conta"
         
-          "'NEWPASS'\n'NEWPASS'" 
-
         - name: Alterar a senha
           block:
            - name: Alterando
