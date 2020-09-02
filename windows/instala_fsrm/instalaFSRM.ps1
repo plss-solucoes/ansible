@@ -12,7 +12,7 @@
 
 #Verifica se função FSRM já está instalada
 
-if (Get-WindowsFeature -Name  FS-resource-manager | Where-Object {$_.Installed -match “True”})
+if (Get-WindowsFeature -Name  FS-resource-manager | Where-Object {$_.Installed -match "True"})
 
     {
 
@@ -74,7 +74,7 @@ if (Get-WindowsFeature -Name  FS-resource-manager | Where-Object {$_.Installed -
 
 #Se função FSRM NÃO estiver instalada ele irá instalar, antes cria uma tarefa para executar o arquivo novamente
 
-else #(Get-WindowsFeature -Name FS-resource-manager| Where-Object {$_.Installed -match “False”}) 
+else #(Get-WindowsFeature -Name FS-resource-manager| Where-Object {$_.Installed -match "False"}) 
 
     {
 
