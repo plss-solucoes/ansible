@@ -1,0 +1,18 @@
+---
+    - name: RDP Services
+      hosts: all
+      gather_facts: no
+
+      
+      tasks:
+        - name: "Check estado" 
+          win_shell: (get-windowsfeature | where name -eq remote-desktop-services).Installstate
+          register: estado
+        - debug: msg={{estado}}
+          
+
+        - name: "Executando nos RDP SERVER" 
+        - include: get_facts.yml
+          when: estado == "Installed" 
+          register: resultado
+        - debug: msg={{resultado}}
